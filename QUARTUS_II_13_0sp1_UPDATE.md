@@ -116,10 +116,10 @@ quartus_pgm --cable="USB-Blaster" -m JTAG -o "P;i2c_master_morphic/morphic.sof"
 ### Pin Assignments
 
 All pins are configured in **constraints/morphic.qsf**:
-- System Clock: PIN_E1 (50 MHz)
-- Reset: PIN_M1 (active-low)
-- I2C SCL: PIN_AB14 (open-drain)
-- I2C SDA: PIN_AA14 (open-drain)
+- System Clock: PIN_J16 (50 MHz oscillator)
+- Reset: PIN_J11 (active-low)
+- I2C SCL: PIN_D13 (open-drain)
+- I2C SDA: PIN_D14 (open-drain)
 - Configuration: 18 pins for address and control
 - Status: 3 output pins
 
@@ -291,7 +291,7 @@ set_property -dict { PACKAGE_PIN E3 } [get_ports clk]
 
 **Quartus II (QSF format):**
 ```tcl
-set_location_assignment PIN_E1 -to clk
+set_location_assignment PIN_J16 -to clk
 ```
 
 ### Build Command Change

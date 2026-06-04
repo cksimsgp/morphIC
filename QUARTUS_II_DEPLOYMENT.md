@@ -120,14 +120,14 @@ The **constraints/morphic.qsf** file contains:
 set_global_assignment -name DEVICE EP2C5F256C8N
 
 # Clock pin (50 MHz)
-set_location_assignment PIN_E1 -to clk
+set_location_assignment PIN_J16 -to clk
 
 # Reset pin
-set_location_assignment PIN_M1 -to rst_n
+set_location_assignment PIN_J11 -to rst_n
 
 # I2C pins
-set_location_assignment PIN_AA14 -to sda
-set_location_assignment PIN_AB14 -to scl
+set_location_assignment PIN_D14 -to sda
+set_location_assignment PIN_D13 -to scl
 
 # Slave address configuration (10-bit)
 set_location_assignment PIN_AA13 -to slave_addr_cfg[0]

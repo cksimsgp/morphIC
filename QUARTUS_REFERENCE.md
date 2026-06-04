@@ -83,11 +83,11 @@ i2c_master_morphic/
 
 Key pin assignments:
 ```tcl
-set_location_assignment PIN_E1 -to clk        # System clock
-set_location_assignment PIN_M1 -to rst_n      # Reset
+set_location_assignment PIN_J16 -to clk       # System clock (50 MHz)
+set_location_assignment PIN_J11 -to rst_n      # Reset
 
-set_location_assignment PIN_AA14 -to sda      # I2C Data
-set_location_assignment PIN_AB14 -to scl      # I2C Clock
+set_location_assignment PIN_D14 -to sda      # I2C Data
+set_location_assignment PIN_D13 -to scl      # I2C Clock
 
 set_location_assignment PIN_AA13 -to slave_addr_cfg[0]  # Address bits
 set_location_assignment PIN_AA4 -to start_read          # Start signal

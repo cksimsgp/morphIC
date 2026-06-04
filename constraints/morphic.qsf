@@ -7,14 +7,14 @@
 # This is a template - customize for your FTDI MorphIC II configuration
 
 # System Clock (50 MHz)
-set_location_assignment PIN_E1 -to clk
+set_location_assignment PIN_J16 -to clk
 
 # Reset (Active Low)
-set_location_assignment PIN_M1 -to rst_n
+set_location_assignment PIN_J11 -to rst_n
 
 # I2C Interface (Open-Drain)
-set_location_assignment PIN_AA14 -to sda
-set_location_assignment PIN_AB14 -to scl
+set_location_assignment PIN_D14 -to sda
+set_location_assignment PIN_D13 -to scl
 
 # Configuration Inputs - Slave Address (10-bit)
 set_location_assignment PIN_AA13 -to slave_addr_cfg[0]
