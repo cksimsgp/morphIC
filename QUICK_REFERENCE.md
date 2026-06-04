@@ -22,6 +22,18 @@ vsim -work work morphic_top_tb -do "run -all; quit"
 vivado -mode batch -source sim/vivado_build.sh
 ```
 
+### Synthesis (Quartus II 13.0sp1)
+```bash
+# Automatic build (recommended)
+make quartus
+
+# Or manual script
+./sim/quartus_build.sh
+
+# Verify installation
+quartus_sh --version
+```
+
 ### Clean Up
 ```bash
 make clean

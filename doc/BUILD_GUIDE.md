@@ -30,19 +30,21 @@ This document provides step-by-step instructions for building and implementing t
 
 You'll need one of the following FPGA design tools:
 
-#### Option A: Xilinx Vivado (Recommended)
+#### Option A: Altera Quartus II 13.0sp1 (Recommended)
+- **Version:** 13.0 Service Pack 1
+- **Installation:** Download from https://www.altera.com/downloads/download-center.html
+- **License:** Web Edition (free) or full license
+- **Note:** This is the primary target platform for this project
+
+#### Option B: Xilinx Vivado
 - **Version:** 2021.2 or later
 - **Installation:** Download from https://www.xilinx.com/products/design-tools/vivado.html
 - **License:** WebPACK (free) or full license
 
-#### Option B: Intel Quartus Prime
+#### Option C: Intel Quartus Prime
 - **Version:** 21.1 or later
 - **Installation:** Download from https://www.intel.com/content/www/us/en/programmable/downloads/download-center.html
 - **License:** Lite edition (free)
-
-#### Option C: ModelSim/Questa Sim
-- **Version:** 10.7 or later (for simulation only)
-- **Installation:** https://www.mentor.com/products/fv/modelsim/
 
 ### 2. Additional Tools
 
@@ -190,6 +192,51 @@ gtkwave morphic_i2c_sim.vcd
 
 ## Synthesis and Implementation
 
+### Using Quartus II 13.0sp1 (Recommended)
+
+#### Step 1: Setup Environment
+
+```bash
+# Set Quartus II 13.0sp1 in PATH
+export PATH=/path/to/quartus/13.0sp1/bin:$PATH
+
+# Verify installation
+quartus_sh --version
+```
+
+#### Step 2: Run Automated Build
+
+```bash
+# Option A: Using Makefile
+cd /path/to/morphic
+make quartus
+
+# Option B: Manual script
+chmod +x sim/quartus_build.sh
+./sim/quartus_build.sh
+```
+
+#### Step 3: Build Output
+
+After successful completion:
+- **SOF File:** `i2c_master_morphic/morphic.sof` (SRAM object file for programming)
+- **Reports:** 
+  - `morphic.fit.rpt` - Fitter report
+  - `morphic.sta.rpt` - Timing analysis
+  - `morphic_timing.rpt` - Detailed timing
+
+#### Step 4: Generate Programming Files
+
+If you need different output formats:
+
+```bash
+# Generate POF file (for NAND flash)
+quartus_cpf -c i2c_master_morphic/morphic.sof morphic.pof
+
+# Generate JAM file
+quartus_cpf -c i2c_master_morphic/morphic.sof morphic.jam
+```
+
 ### Using Vivado (Xilinx)
 
 #### Step 1: Create Project
@@ -288,13 +335,39 @@ quartus_sh -t quartus_flow.tcl
 
 ### Step 1: Connect FPGA Board
 
-1. Connect programming cable (USB or JTAG) to computer
+1. Connect programming cable (USB-Blaster or JTAG) to computer
 2. Connect I2C slave device:
    - Pin SCL to I2C_CLK
    - Pin SDA to I2C_SDA
    - Connect pull-up resistors (see circuit above)
 
 ### Step 2: Program FPGA
+
+#### Using Quartus II 13.0sp1
+
+**Option A: Quartus GUI**
+1. Open Quartus II
+2. Go to Tools → Programmer
+3. Click "Hardware Setup" and verify USB-Blaster is detected
+4. Add Device and select `morphic.sof`
+5. Click "Start"
+
+**Option B: Command Line**
+```bash
+# Program FPGA using quartus_pgm
+quartus_pgm --cable="USB-Blaster" -m JTAG -o "P;i2c_master_morphic/morphic.sof"
+```
+
+**Option C: TCL Script**
+```tcl
+# Program using TCL
+load_package hw_api
+set cable_names [get_hardware_names]
+open_hw [lindex $cable_names 0]
+set device_names [get_device_names -hardware [lindex $cable_names 0]]
+program_device -device [lindex $device_names 0] -file morphic.sof
+close_hw
+```
 
 #### Using Vivado Hardware Manager
 

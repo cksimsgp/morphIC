@@ -17,6 +17,7 @@ Complete production-quality Verilog implementation with 10-bit addressing at 3.4
 
 1. **[README.md](README.md)** - Project overview and quick start (523 lines)
 2. **[QUICK_REFERENCE.md](QUICK_REFERENCE.md)** - Fast commands and code snippets (321 lines)
+3. **[QUARTUS_REFERENCE.md](QUARTUS_REFERENCE.md)** - Quartus II 13.0sp1 guide (NEW)
 
 ### 📚 Documentation
 

@@ -307,8 +307,9 @@ The testbench includes a behavioral I2C slave that:
 
 | Tool | Version | Status |
 |------|---------|--------|
-| Xilinx Vivado | 2021.2+ | ✅ Fully Supported |
-| Intel Quartus | 21.1+ | ✅ Fully Supported |
+| Altera Quartus II | **13.0sp1** | ✅ **Primary Target** |
+| Xilinx Vivado | 2021.2+ | ✅ Supported |
+| Intel Quartus Prime | 21.1+ | ✅ Supported |
 | Mentor ModelSim | 10.7+ | ✅ Fully Supported |
 | Synopsys VCS | Any | ✅ Compatible |
 | Cadence Xcelium | Any | ✅ Compatible |

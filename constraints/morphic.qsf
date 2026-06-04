@@ -1,0 +1,102 @@
+# Quartus II 13.0sp1 Pin Assignment File
+# For FTDI MorphIC II board (Cyclone II - EP2C5F256C8N)
+#
+# Format: <Pin_Name> = <FPGA_Pin> ;
+#
+# Note: Adjust pin numbers according to your specific board layout
+# This is a template - customize for your FTDI MorphIC II configuration
+
+# System Clock (50 MHz)
+set_location_assignment PIN_E1 -to clk
+
+# Reset (Active Low)
+set_location_assignment PIN_M1 -to rst_n
+
+# I2C Interface (Open-Drain)
+set_location_assignment PIN_AA14 -to sda
+set_location_assignment PIN_AB14 -to scl
+
+# Configuration Inputs - Slave Address (10-bit)
+set_location_assignment PIN_AA13 -to slave_addr_cfg[0]
+set_location_assignment PIN_AB13 -to slave_addr_cfg[1]
+set_location_assignment PIN_AA12 -to slave_addr_cfg[2]
+set_location_assignment PIN_AB12 -to slave_addr_cfg[3]
+set_location_assignment PIN_AA11 -to slave_addr_cfg[4]
+set_location_assignment PIN_AB11 -to slave_addr_cfg[5]
+set_location_assignment PIN_AA10 -to slave_addr_cfg[6]
+set_location_assignment PIN_AB10 -to slave_addr_cfg[7]
+set_location_assignment PIN_AA9 -to slave_addr_cfg[8]
+set_location_assignment PIN_AB9 -to slave_addr_cfg[9]
+
+# Configuration Inputs - Number of Bytes (8-bit)
+set_location_assignment PIN_AA8 -to num_bytes_cfg[0]
+set_location_assignment PIN_AB8 -to num_bytes_cfg[1]
+set_location_assignment PIN_AA7 -to num_bytes_cfg[2]
+set_location_assignment PIN_AB7 -to num_bytes_cfg[3]
+set_location_assignment PIN_AA6 -to num_bytes_cfg[4]
+set_location_assignment PIN_AB6 -to num_bytes_cfg[5]
+set_location_assignment PIN_AA5 -to num_bytes_cfg[6]
+set_location_assignment PIN_AB5 -to num_bytes_cfg[7]
+
+# Control Signal
+set_location_assignment PIN_AA4 -to start_read
+
+# Status Outputs
+set_location_assignment PIN_E16 -to read_busy
+set_location_assignment PIN_D17 -to read_done
+set_location_assignment PIN_D16 -to read_error
+
+# Data Output (8-bit)
+set_location_assignment PIN_C17 -to read_byte_out[0]
+set_location_assignment PIN_C16 -to read_byte_out[1]
+set_location_assignment PIN_B17 -to read_byte_out[2]
+set_location_assignment PIN_B16 -to read_byte_out[3]
+set_location_assignment PIN_A17 -to read_byte_out[4]
+set_location_assignment PIN_A16 -to read_byte_out[5]
+set_location_assignment PIN_B15 -to read_byte_out[6]
+set_location_assignment PIN_A15 -to read_byte_out[7]
+
+# Data Valid Signal
+set_location_assignment PIN_A14 -to data_valid_out
+
+# ============================================================================
+# I/O Standard and Drive Settings
+# ============================================================================
+
+# Set I2C pins to open-drain (drive as weak pull)
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to sda
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to scl
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to sda
+set_instance_assignment -name WEAK_PULL_UP_RESISTOR ON -to scl
+
+# Set standard I/O voltages
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to clk
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to rst_n
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to slave_addr_cfg
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to num_bytes_cfg
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to start_read
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to read_busy
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to read_done
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to read_error
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to read_byte_out
+set_instance_assignment -name IO_STANDARD "3.3-V LVCMOS" -to data_valid_out
+
+# ============================================================================
+# Timing Constraints
+# ============================================================================
+
+# Clock constraint - 50 MHz
+create_clock -period 20 -name clk [get_ports clk]
+
+# Set clock as reference clock
+set_global_assignment -name RESERVE_ALL_UNUSED_PINS "AS INPUT TRI-STATED"
+set_global_assignment -name RESERVE_NCSO_AFTER_CONFIGURATION "USE AS REGULAR IO"
+
+# ============================================================================
+# Additional Device Settings
+# ============================================================================
+
+set_global_assignment -name NOMINAL_CORE_SUPPLY_VOLTAGE 1.5V
+set_global_assignment -name NOMINAL_I_O_SUPPLY_VOLTAGE 3.3V
+
+# End of Pin Assignment File

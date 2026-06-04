@@ -20,11 +20,16 @@ BUILD_DIR = build
 VIVADO_PROJECT = i2c_master_morphic
 VIVADO_DEVICE = xc7a35tftg256-1
 
+# Quartus II settings
+QUARTUS_PROJECT = i2c_master_morphic
+QUARTUS_DEVICE = EP2C5F256C8N
+
 # Tool variables
 VLOG = vlog
 VSIM = vsim
 VLIB = vlib
 VIVADO = vivado
+QUARTUS_SH = quartus_sh
 
 # Files
 RTL_FILES = $(RTL_DIR)/i2c_master.v $(RTL_DIR)/morphic_top.v
@@ -41,7 +46,7 @@ VSIM_FLAGS = -work $(WORK_DIR) -voptargs="+acc"
 # Simulation top module
 SIM_TOP = morphic_top_tb
 
-.PHONY: sim clean synthesis all docs help
+.PHONY: sim clean synthesis quartus all docs help
 
 # ============================================================================
 # Help Target
@@ -56,6 +61,7 @@ help:
 	@echo "  sim         - Run ModelSim simulation"
 	@echo "  clean       - Remove simulation artifacts"
 	@echo "  synthesis   - Run Vivado synthesis"
+	@echo "  quartus     - Run Quartus II 13.0sp1 build"
 	@echo "  docs        - Generate documentation"
 	@echo "  all         - Full build and simulation"
 	@echo "  help        - Display this message"
@@ -101,7 +107,7 @@ clean:
 	@echo "Clean complete!"
 
 # ============================================================================
-# Synthesis Target
+# Synthesis Targets
 # ============================================================================
 
 synthesis:
@@ -112,6 +118,17 @@ synthesis:
 	bash $(SIM_DIR)/vivado_build.sh
 	@echo "Synthesis complete!"
 	@echo "Check $(VIVADO_PROJECT)/ for results"
+	@echo "=========================================="
+
+quartus:
+	@echo ""
+	@echo "=========================================="
+	@echo "Running Quartus II 13.0sp1 Build..."
+	@echo "=========================================="
+	bash $(SIM_DIR)/quartus_build.sh
+	@echo "Quartus build complete!"
+	@echo "Check $(QUARTUS_PROJECT)/ for results"
+	@echo "Output: $(QUARTUS_PROJECT)/morphic.sof"
 	@echo "=========================================="
 
 # ============================================================================
